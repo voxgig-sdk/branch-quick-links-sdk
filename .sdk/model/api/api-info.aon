@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      auth: false
+      contact: {
+        email: "support@branch.io"
+        name: "Branch Support"
+        url: "https://help.branch.io/using-branch/page/submit-a-ticket"
+      }
+      description: "Branch's Quick Links API is a useful tool for programmatically generating Branch Links that surface on the Branch Dashboard. You can create Deep Links at scale to support all of your campaigns while tagging the links appropriately based on channel and other analytics tags. The API also supports QR code customization during link creation, allowing you to programmatically apply branding and design settings to the QR codes associated with your Short Links."
+      servers: [
+        {
+          url: "https://api2.branch.io/v1"
+        }
+      ]
+      summary: "Branch's Quick Links API is a useful tool for programmatically generating Branch Links that surface on the Branch Dashboard."
+      termsOfService: "https://branch.io/policies/"
+      title: "Quick Links API"
+      version: "1.0.1"
+      website: "https://api2.branch.io"
+    }
+  }
+}
+

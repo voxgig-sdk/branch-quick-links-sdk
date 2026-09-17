@@ -1,0 +1,70 @@
+<?php
+declare(strict_types=1);
+
+// BranchQuickLinks SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+BranchQuickLinksUtility::setRegistrar(function (BranchQuickLinksUtility $u): void {
+    $u->clean = [BranchQuickLinksClean::class, 'call'];
+    $u->done = [BranchQuickLinksDone::class, 'call'];
+    $u->make_error = [BranchQuickLinksMakeError::class, 'call'];
+    $u->feature_add = [BranchQuickLinksFeatureAdd::class, 'call'];
+    $u->feature_hook = [BranchQuickLinksFeatureHook::class, 'call'];
+    $u->feature_init = [BranchQuickLinksFeatureInit::class, 'call'];
+    $u->fetcher = [BranchQuickLinksFetcher::class, 'call'];
+    $u->make_fetch_def = [BranchQuickLinksMakeFetchDef::class, 'call'];
+    $u->make_context = [BranchQuickLinksMakeContext::class, 'call'];
+    $u->make_options = [BranchQuickLinksMakeOptions::class, 'call'];
+    $u->make_request = [BranchQuickLinksMakeRequest::class, 'call'];
+    $u->make_response = [BranchQuickLinksMakeResponse::class, 'call'];
+    $u->make_result = [BranchQuickLinksMakeResult::class, 'call'];
+    $u->make_point = [BranchQuickLinksMakePoint::class, 'call'];
+    $u->make_spec = [BranchQuickLinksMakeSpec::class, 'call'];
+    $u->make_url = [BranchQuickLinksMakeUrl::class, 'call'];
+    $u->param = [BranchQuickLinksParam::class, 'call'];
+    $u->prepare_auth = [BranchQuickLinksPrepareAuth::class, 'call'];
+    $u->prepare_body = [BranchQuickLinksPrepareBody::class, 'call'];
+    $u->prepare_headers = [BranchQuickLinksPrepareHeaders::class, 'call'];
+    $u->prepare_method = [BranchQuickLinksPrepareMethod::class, 'call'];
+    $u->prepare_params = [BranchQuickLinksPrepareParams::class, 'call'];
+    $u->prepare_path = [BranchQuickLinksPreparePath::class, 'call'];
+    $u->prepare_query = [BranchQuickLinksPrepareQuery::class, 'call'];
+    $u->graphql_body = [BranchQuickLinksGraphql::class, 'body'];
+    $u->graphql_errors = [BranchQuickLinksGraphql::class, 'errors'];
+    $u->result_basic = [BranchQuickLinksResultBasic::class, 'call'];
+    $u->result_body = [BranchQuickLinksResultBody::class, 'call'];
+    $u->result_headers = [BranchQuickLinksResultHeaders::class, 'call'];
+    $u->transform_request = [BranchQuickLinksTransformRequest::class, 'call'];
+    $u->transform_response = [BranchQuickLinksTransformResponse::class, 'call'];
+});

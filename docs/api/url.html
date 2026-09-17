@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Url | Quick Links API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Quick Links API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/branch-quick-links-sdk">voxgig-sdk/branch-quick-links-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Quick Links API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/bulk.html">Bulk</a>
+<a aria-current="page" href="../api/url.html">Url</a><div class="nav-sections"><a class="nav-section" href="#post-url">POST /url</a>
+<a class="nav-section" href="#put-url">PUT /url</a></div></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="url">Url</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-url"><code>/url</code></a></td>
+<td><code>create</code></td>
+<td>Ok</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-url"><code>/url</code></a></td>
+<td><code>update</code></td>
+<td>Ok</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alias</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Instead of our standard encoded short url, you can specify the vanity alias.</td>
+</tr>
+<tr>
+<td><code>analytics</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>branch_key</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The Branch Key of the originating app, found in the <a href="https://help.branch.io/using-branch/docs/profile-settings">Settings</a> tab of your Branch Dashboard.</td>
+</tr>
+<tr>
+<td><code>branch_secret</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The Branch Secret of the originating app, found in the <a href="https://help.branch.io/using-branch/docs/profile-settings">Settings</a> tab of your Branch Dashboard</td>
+</tr>
+<tr>
+<td><code>campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Campaign name</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link channel</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Deletion status</td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>In seconds.</td>
+</tr>
+<tr>
+<td><code>feature</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link feature set</td>
+</tr>
+<tr>
+<td><code>qr_code_settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>QR code customization settings.</td>
+</tr>
+<tr>
+<td><code>stage</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Social media tags</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set <code>$marketing_title</code>).</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Generated URL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-url" class="operation" data-method="post"><code>POST</code> /url</h3>
+<p>Operation ID: <code>createDeepLinkUrl</code>.</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alias</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Instead of our standard encoded short url, you can specify the vanity alias. For example, instead of a random string of characters/integers, you can set the vanity alias as .app.link/devonaustin.</td>
+</tr>
+<tr>
+<td><code>analytics</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>analytics.~ad_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_set_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad set ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_set_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad set name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that</td>
+</tr>
+<tr>
+<td><code>analytics.~campaign_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this field to organize the links by actual campaign id. For example, if you launched a new feature or product and want to run a campaign around that</td>
+</tr>
+<tr>
+<td><code>analytics.~channel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately</td>
+</tr>
+<tr>
+<td><code>analytics.~creative_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The creative ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~creative_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The creative name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_ad_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer ad name specified for the last attributed touch. can be specified on the link by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_ad_set_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer ad set name specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer campaign specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_keyword</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer keyword of the last touch. Can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_placement</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer specified placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns. Can be specified on the link by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_secondary_publisher</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the secondary publisher specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_sub_site_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Customer reference to the site where the ad was displayed. Can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~feature</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'</td>
+</tr>
+<tr>
+<td><code>analytics.~keyword</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The keyword specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~keyword_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The unique ID for keyword of the last touch</td>
+</tr>
+<tr>
+<td><code>analytics.~placement</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.</td>
+</tr>
+<tr>
+<td><code>analytics.~placement_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.</td>
+</tr>
+<tr>
+<td><code>analytics.~secondary_publisher</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>secondary publisher specified for the last attributed touch. passed by the ad network.</td>
+</tr>
+<tr>
+<td><code>analytics.~stage</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter</td>
+</tr>
+<tr>
+<td><code>analytics.~sub_site_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Reference to the site where the ad was displayed.</td>
+</tr>
+<tr>
+<td><code>analytics.~tags</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above</td>
+</tr>
+<tr>
+<td><code>branch_key</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The Branch Key of the originating app, found in the <a href="https://help.branch.io/using-branch/docs/profile-settings">Settings</a> tab of your Branch Dashboard.</td>
+</tr>
+<tr>
+<td><code>campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Campaign name</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link channel</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>data.$after_click_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon</td>
+</tr>
+<tr>
+<td><code>data.$afterclick_desktop_url</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>When a user on desktop returns to the desktop browser after going to the desktop app, take them to this URL.</td>
+</tr>
+<tr>
+<td><code>data.$android_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Android Play Store page for your app (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$android_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+</tr>
+<tr>
+<td><code>data.$android_wechat_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for WeChat on Android devices $android_url value</td>
+</tr>
+<tr>
+<td><code>data.$blackberry_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Blackberry OS BlackBerry default URL (set in Link Settings) Deep link channel</td>
+</tr>
+<tr>
+<td><code>data.$desktop_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect URL for desktop devices - mobile users will default to the app store.</td>
+</tr>
+<tr>
+<td><code>data.$desktop_web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$fallback_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for all platforms - so you don't have to enable it by platform. Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link. System-wide Default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$fallback_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for all platforms based on a lower-case Alpha-2 country code.</td>
+</tr>
+<tr>
+<td><code>data.$fire_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Amazon Fire OS Fire default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$huawei_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}</td>
+</tr>
+<tr>
+<td><code>data.$ios_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iOS App Store page for your app (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$ios_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+</tr>
+<tr>
+<td><code>data.$ios_wechat_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for WeChat on iOS devices $ios_url value</td>
+</tr>
+<tr>
+<td><code>data.$ipad_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iPads $ios_url value</td>
+</tr>
+<tr>
+<td><code>data.$marketing_title</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Set the marketing title to see the URL in the Dashboard (must also set <code>type</code> to 2).</td>
+</tr>
+<tr>
+<td><code>data.$mobile_web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$samsung_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}</td>
+</tr>
+<tr>
+<td><code>data.$web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $fallback_url instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$windows_phone_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Windows OS Windows Phone default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>In seconds. Only set this key if you want to override the match duration for deep link matching. This is the time that Branch allows a click to remain outstanding and be eligible to be matched with a new app session. This is default set to 7200 (2 hours).</td>
+</tr>
+<tr>
+<td><code>feature</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link feature set</td>
+</tr>
+<tr>
+<td><code>qr_code_settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>QR code customization settings. When included, both the Short Link and its customized QR code are generated instantly. Requires type=2 to be set. This object accepts the same styling parameters as the QR Code API.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.background_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the background of the QR code itself as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.background_image_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>URL to an image to be used as the background behind the QR Code.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.center_logo_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>URL to the image you want as a center logo for example &quot;https://cdn.branch.io/branch-assets/00000000-og_image.png&quot;</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the QR Code itself as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_pattern</code></td>
+<td><code>enum: 1, 2, 3, 4, 5, 6, ...</code></td>
+<td>No</td>
+<td>QR Code pattern style: 1 = standard, 2 = squares, 3 = circles, 4 = triangles, 5 = diamonds, 6 = hexagons, 7 = octagons</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_pattern_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Direct link to an image to be used as the code-pattern itself on the QR Code.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_shape</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Shape of the QR code modules.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_eye_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the finder eye as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_pattern</code></td>
+<td><code>enum: 1, 2, 3</code></td>
+<td>No</td>
+<td>The finder pattern shape (top left, top right, and bottom left corners): 1 = square, 2 = rounded rectangle, 3 = circle</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_pattern_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the Finder Pattern as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.image_format</code></td>
+<td><code>enum: png, jpeg, jpg</code></td>
+<td>No</td>
+<td>The output image format that could be either JPEG or PNG</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.margin</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>The number of pixels you want for the margin. Min 1px. Max 20px.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.width</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Output size of QR Code image. Min 300px. Max 2000px. (Only applicable to JPEG/PNG)</td>
+</tr>
+<tr>
+<td><code>stage</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Social media tags</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set <code>$marketing_title</code>). Note that type=2 is also required to customize a QR code using <code>qr_code_settings</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses">Responses</h4>
+<h5 id="200-ok" class="status" data-status="2xx">200: Ok</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Generated URL</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-authentication-failed" class="status" data-status="4xx">400: Authentication Failed</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>error</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.code</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="429-rate-limit-reached" class="status" data-status="4xx">429: Rate Limit Reached</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ref</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="update">update</h2>
+<h3 id="put-url" class="operation" data-method="put"><code>PUT</code> /url</h3>
+<p>Operation ID: <code>updateExistingDeepLink</code>.</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>url</code> | <code>query</code> | <code>string</code> | Yes | The Deep Link URL against which the details are to be updated. |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>analytics</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>analytics.~ad_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_set_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad set ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~ad_set_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ad set name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that</td>
+</tr>
+<tr>
+<td><code>analytics.~campaign_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this field to organize the links by actual campaign id. For example, if you launched a new feature or product and want to run a campaign around that</td>
+</tr>
+<tr>
+<td><code>analytics.~channel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately</td>
+</tr>
+<tr>
+<td><code>analytics.~creative_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The creative ID specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~creative_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The creative name specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_ad_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer ad name specified for the last attributed touch. can be specified on the link by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_ad_set_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer ad set name specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer campaign specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_keyword</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer keyword of the last touch. Can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_placement</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The customer specified placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns. Can be specified on the link by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_secondary_publisher</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the secondary publisher specified for the last attributed touch. can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~customer_sub_site_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Customer reference to the site where the ad was displayed. Can be specified on links by the client.</td>
+</tr>
+<tr>
+<td><code>analytics.~feature</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'</td>
+</tr>
+<tr>
+<td><code>analytics.~keyword</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The keyword specified for the last attributed touch.</td>
+</tr>
+<tr>
+<td><code>analytics.~keyword_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The unique ID for keyword of the last touch</td>
+</tr>
+<tr>
+<td><code>analytics.~placement</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.</td>
+</tr>
+<tr>
+<td><code>analytics.~placement_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.</td>
+</tr>
+<tr>
+<td><code>analytics.~secondary_publisher</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>secondary publisher specified for the last attributed touch (passed by the ad network).</td>
+</tr>
+<tr>
+<td><code>analytics.~stage</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter</td>
+</tr>
+<tr>
+<td><code>analytics.~sub_site_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Reference to the site where the ad was displayed.</td>
+</tr>
+<tr>
+<td><code>analytics.~tags</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above</td>
+</tr>
+<tr>
+<td><code>branch_key</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The Branch Key of the originating app, found in the <a href="https://help.branch.io/using-branch/docs/profile-settings">Settings</a> tab of your Branch Dashboard</td>
+</tr>
+<tr>
+<td><code>branch_secret</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The Branch Secret of the originating app, found in the <a href="https://help.branch.io/using-branch/docs/profile-settings">Settings</a> tab of your Branch Dashboard</td>
+</tr>
+<tr>
+<td><code>campaign</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Campaign name</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link channel</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>data.$after_click_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon</td>
+</tr>
+<tr>
+<td><code>data.$afterclick_desktop_url</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>When a user on desktop returns to the desktop browser after going to the desktop app, take them to this URL.</td>
+</tr>
+<tr>
+<td><code>data.$android_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Android Play Store page for your app (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$android_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+</tr>
+<tr>
+<td><code>data.$android_wechat_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for WeChat on Android devices $android_url value</td>
+</tr>
+<tr>
+<td><code>data.$blackberry_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Blackberry OS BlackBerry default URL (set in Link Settings) Deep link channel</td>
+</tr>
+<tr>
+<td><code>data.$canonical_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>This is the url set against the identifier.</td>
+</tr>
+<tr>
+<td><code>data.$desktop_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect URL for desktop devices - mobile users will default to the app store.</td>
+</tr>
+<tr>
+<td><code>data.$desktop_web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$fallback_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for all platforms - so you don't have to enable it by platform. Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link. System-wide Default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$fallback_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for all platforms based on a lower-case Alpha-2 country code.</td>
+</tr>
+<tr>
+<td><code>data.$fire_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Amazon Fire OS Fire default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$huawei_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}</td>
+</tr>
+<tr>
+<td><code>data.$ios_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iOS App Store page for your app (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>data.$ios_url_xx</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+</tr>
+<tr>
+<td><code>data.$ios_wechat_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for WeChat on iOS devices $ios_url value</td>
+</tr>
+<tr>
+<td><code>data.$ipad_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for iPads $ios_url value</td>
+</tr>
+<tr>
+<td><code>data.$marketing_title</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Marketing title must be set in order to see the Branch Deep Link in the Branch Dashboard (must have also set <code>type</code> to 2 during creation)</td>
+</tr>
+<tr>
+<td><code>data.$mobile_web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$samsung_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}</td>
+</tr>
+<tr>
+<td><code>data.$web_only</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Force to open the $fallback_url instead of the app</td>
+</tr>
+<tr>
+<td><code>data.$windows_phone_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Change the redirect endpoint for Windows OS Windows Phone default URL (set in Link Settings)</td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>In seconds. Only set this key if you want to override the match duration for Deep Link matching. This is the time that Branch allows a click to remain outstanding and be eligible to be matched with a new app session. This is default set to 7200 (2 hours).</td>
+</tr>
+<tr>
+<td><code>feature</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deep link feature set</td>
+</tr>
+<tr>
+<td><code>qr_code_settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>QR code customization settings for updating the QR code design on an existing link. This object accepts the same styling parameters as the QR Code API.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.background_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the background of the QR code itself as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.background_image_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>URL to an image to be used as the background behind the QR Code.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.center_logo_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>URL to the image you want as a center logo for example &quot;https://cdn.branch.io/branch-assets/00000000-og_image.png&quot;</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the QR Code itself as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_pattern</code></td>
+<td><code>enum: 1, 2, 3, 4, 5, 6, ...</code></td>
+<td>No</td>
+<td>QR Code pattern style: 1 = standard, 2 = squares, 3 = circles, 4 = triangles, 5 = diamonds, 6 = hexagons, 7 = octagons</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_pattern_url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Direct link to an image to be used as the code-pattern itself on the QR Code.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.code_shape</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Shape of the QR code modules.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_eye_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the finder eye as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_pattern</code></td>
+<td><code>enum: 1, 2, 3</code></td>
+<td>No</td>
+<td>The finder pattern shape (top left, top right, and bottom left corners): 1 = square, 2 = rounded rectangle, 3 = circle</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.finder_pattern_color</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Hex color value of the Finder Pattern as per https://htmlcolorcodes.com/</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.image_format</code></td>
+<td><code>enum: png, jpeg, jpg</code></td>
+<td>No</td>
+<td>The output image format that could be either JPEG or PNG</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.margin</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>The number of pixels you want for the margin. Min 1px. Max 20px.</td>
+</tr>
+<tr>
+<td><code>qr_code_settings.width</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Output size of QR Code image. Min 300px. Max 2000px. (Only applicable to JPEG/PNG)</td>
+</tr>
+<tr>
+<td><code>stage</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Social media tags</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set <code>$marketing_title</code>). Note that type=2 is also required to customize a QR code using <code>qr_code_settings</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-ok-1" class="status" data-status="2xx">200: Ok</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Deletion status</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Deleted URL</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-authentication-failed-1" class="status" data-status="4xx">400: Authentication Failed</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>error</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.code</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="429-rate-limit-reached-1" class="status" data-status="4xx">429: Rate Limit Reached</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ref</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

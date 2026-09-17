@@ -1,0 +1,22 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 3
+
+  entity: bulk: {
+    path: "/url/bulk/{branch_key}": {
+      rename: param: "branch_key": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: url: {
+    path: "/url": {
+      op: create: method: *POST
+      op: update: method: *PUT
+    }
+  }
+
+}
