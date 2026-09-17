@@ -1,0 +1,1363 @@
+{
+ "openapi": "3.0.0",
+ "info": {
+  "title": "Quick Links API",
+  "description": "Branch's Quick Links API is a useful tool for programmatically generating Branch Links that surface on the Branch Dashboard. You can create Deep Links at scale to support all of your campaigns while tagging the links appropriately based on channel and other analytics tags. The API also supports QR code customization during link creation, allowing you to programmatically apply branding and design settings to the QR codes associated with your Short Links.",
+  "termsOfService": "https://branch.io/policies/",
+  "contact": {
+   "name": "Branch Support",
+   "url": "https://help.branch.io/using-branch/page/submit-a-ticket",
+   "email": "support@branch.io"
+  },
+  "version": "1.0.1"
+ },
+ "servers": [
+  {
+   "url": "https://api2.branch.io/v1"
+  }
+ ],
+ "paths": {
+  "/url/bulk/{branch_key}": {
+   "post": {
+    "tags": [
+     "Quick Links API"
+    ],
+    "summary": "Create Bulk Deep Link URL",
+    "description": "This endpoint is used to generate Deep Link URLs based on parameters provided.",
+    "operationId": "createBulkDeepLinkUrl",
+    "parameters": [
+     {
+      "name": "branch_key",
+      "in": "path",
+      "description": "The Branch Key of the originating app, found in the Settings tab of your Branch Dashboard\n",
+      "required": "true",
+      "schema": {
+       "type": "string",
+       "example": "key_live_xxxx"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/create_bulk_url_request_array_body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Ok",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/create_bulk_url_200"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Authentication Failed",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"message\": \"Authentication failed !\",\n        \"code\": 400\n    }\n}"
+         }
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Reached",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"code\": 429,\n        \"message\": \"Rate limit reached.\"\n    }\n}"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/url": {
+   "post": {
+    "tags": [
+     "Quick Links API"
+    ],
+    "summary": "Create a Deep Link URL",
+    "description": "This endpoint is used to generate a Deep Link URL based on the parameters provided. When you include qr_code_settings in the request, both the Short Link and its customized QR code are generated instantly and appear in Branch. Note that type=2 must be set to customize a QR code. This feature is available to customers with Engagement Pro, or those with access to both the Quick Link API and QR Codes API.",
+    "operationId": "createDeepLinkUrl",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/create_url_request_body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Ok",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/create_url_200"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Authentication Failed",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"message\": \"Authentication failed !\",\n        \"code\": 400\n    }\n}"
+         }
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Reached",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"code\": 429,\n        \"message\": \"Rate limit reached.\"\n    }\n}"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "Quick Links API"
+    ],
+    "summary": "Update Existing Deep Link",
+    "description": "This endpoint is used to update an existing Branch Deep Link. You can also use this endpoint to update the QR code design on an existing link by including qr_code_settings in the request.",
+    "operationId": "updateExistingDeepLink",
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "description": "The Deep Link URL against which the details are to be updated.\n",
+      "required": "true",
+      "schema": {
+       "type": "string",
+       "example": "https://example.app.link/{UNIQUE_PATH_HERE}"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/update_url_request_body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Ok",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/delete_url_200"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Authentication Failed",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"message\": \"Authentication failed !\",\n        \"code\": 400\n    }\n}"
+         }
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Reached",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/inline_response_400"
+        },
+        "examples": {
+         "Result": {
+          "value": "{\n    \"error\": {\n        \"code\": 429,\n        \"message\": \"Rate limit reached.\"\n    }\n}"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "create_bulk_url_request_array_body": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/create_bulk_url_object"
+    }
+   },
+   "create_bulk_url_200": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/create_url_200"
+    }
+   },
+   "inline_response_400": {
+    "type": "object",
+    "properties": {
+     "error": {
+      "$ref": "#/components/schemas/inline_response_400_error"
+     }
+    }
+   },
+   "create_bulk_url_object": {
+    "type": "object",
+    "required": [
+     "branch_key"
+    ],
+    "properties": {
+     "channel": {
+      "type": "string",
+      "description": "Deep link channel",
+      "example": "facebook"
+     },
+     "feature": {
+      "type": "string",
+      "description": "Deep link feature set",
+      "example": "onboarding"
+     },
+     "campaign": {
+      "type": "string",
+      "description": "Campaign name",
+      "example": "new product"
+     },
+     "stage": {
+      "type": "string",
+      "description": "",
+      "example": "new user"
+     },
+     "tags": {
+      "type": "array",
+      "description": "Social media tags",
+      "items": {
+       "type": "string",
+       "example": "one"
+      }
+     },
+     "data": {
+      "type": "object",
+      "properties": {
+       "$marketing_title": {
+        "type": "string",
+        "description": "Set the marketing title to see the Branch Deep Link in the Branch Dashboard (must also set `type` to 2)."
+       },
+       "$fallback_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms - so you don't have to enable it by platform. Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link. System-wide Default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$fallback_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms based on a lower-case Alpha-2 country code.",
+        "example": ""
+       },
+       "$desktop_url": {
+        "type": "string",
+        "description": "Redirect URL for desktop devices - mobile users will default to the app store.",
+        "example": ""
+       },
+       "$ios_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS App Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$ipad_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iPads $ios_url value",
+        "example": ""
+       },
+       "$android_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android Play Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$android_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$samsung_url": {
+        "type": "string",
+        "description": "Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}",
+        "example": ""
+       },
+       "$huawei_url": {
+        "type": "string",
+        "description": "Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}",
+        "example": ""
+       },
+       "$windows_phone_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Windows OS Windows Phone default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$blackberry_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Blackberry OS BlackBerry default URL (set in Link Settings) Deep link channel",
+        "example": ""
+       },
+       "$fire_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Amazon Fire OS Fire default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on iOS devices $ios_url value",
+        "example": ""
+       },
+       "$android_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on Android devices $android_url value",
+        "example": ""
+       },
+       "$web_only": {
+        "type": "boolean",
+        "description": "Force to open the $fallback_url instead of the app",
+        "example": "false"
+       },
+       "$desktop_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$mobile_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$after_click_url": {
+        "type": "string",
+        "description": "When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon",
+        "example": ""
+       },
+       "$afterclick_desktop_url": {
+        "type": "boolean",
+        "description": "When a user on desktop returns to the desktop browser after going to the desktop app, take them to this URL.",
+        "example": "false"
+       }
+      }
+     },
+     "alias": {
+      "type": "string",
+      "description": "Instead of our standard encoded short url, you can specify the vanity alias. For example, instead of a random string of characters/integers, you can set the vanity alias as .app.link/devonaustin.",
+      "example": ""
+     },
+     "type": {
+      "type": "integer",
+      "description": "Set type to 2 to see the Branch Deep Link in the Branch Dashboard (must also set `$marketing_title`).",
+      "example": "2"
+     },
+     "duration": {
+      "type": "integer",
+      "description": "In seconds. Only set this key if you want to override the match duration for deep link matching. This is the time that Branch allows a click to remain outstanding and be eligible to be matched with a new app session. This is default set to 7200 (2 hours).",
+      "example": "7200"
+     },
+     "analytics": {
+      "type": "object",
+      "properties": {
+       "~channel": {
+        "type": "string",
+        "description": "Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately",
+        "example": ""
+       },
+       "~feature": {
+        "type": "string",
+        "description": "This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'",
+        "example": ""
+       },
+       "~campaign": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~campaign_id": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign id. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~customer_campaign": {
+        "type": "string",
+        "description": "The customer campaign specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~stage": {
+        "type": "string",
+        "description": "Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter",
+        "example": ""
+       },
+       "~tags": {
+        "type": "array",
+        "description": "This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above",
+        "items": {
+         "type": "string"
+        }
+       },
+       "~secondary_publisher": {
+        "type": "string",
+        "description": "secondary publisher specified for the last attributed touch. passed by the ad network.",
+        "example": ""
+       },
+       "~customer_secondary_publisher": {
+        "type": "string",
+        "description": "The ID of the secondary publisher specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~creative_name": {
+        "type": "string",
+        "description": "The creative name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~creative_id": {
+        "type": "string",
+        "description": "The creative ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_name": {
+        "type": "string",
+        "description": "The ad set name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_id": {
+        "type": "string",
+        "description": "The ad set ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_set_name": {
+        "type": "string",
+        "description": "The customer ad set name specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~ad_name": {
+        "type": "string",
+        "description": "The ad name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_id": {
+        "type": "string",
+        "description": "The ad ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_name": {
+        "type": "string",
+        "description": "The customer ad name specified for the last attributed touch. can be specified on the link by the client.",
+        "example": ""
+       },
+       "~keyword": {
+        "type": "string",
+        "description": "The keyword specified for the last attributed touch.",
+        "example": ""
+       },
+       "~keyword_id": {
+        "type": "string",
+        "description": "The unique ID for keyword of the last touch",
+        "example": ""
+       },
+       "~customer_keyword": {
+        "type": "string",
+        "description": "The customer keyword of the last touch. Can be specified on links by the client.",
+        "example": ""
+       },
+       "~placement": {
+        "type": "string",
+        "description": "The placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~placement_id": {
+        "type": "string",
+        "description": "The ID of placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~customer_placement": {
+        "type": "string",
+        "description": "The customer specified placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns. Can be specified on the link by the client.",
+        "example": ""
+       },
+       "~sub_site_name": {
+        "type": "string",
+        "description": "Reference to the site where the ad was displayed.",
+        "example": ""
+       },
+       "~customer_sub_site_name": {
+        "type": "string",
+        "description": "Customer reference to the site where the ad was displayed. Can be specified on links by the client.",
+        "example": ""
+       }
+      }
+     }
+    }
+   },
+   "create_url_200": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "description": "Generated URL",
+      "type": "string",
+      "example": "https://example.app.link/{UNIQUE_PATH_HERE}"
+     }
+    }
+   },
+   "inline_response_400_error": {
+    "type": "object",
+    "properties": {
+     "message": {
+      "type": "string",
+      "example": "Authentication failed !"
+     },
+     "code": {
+      "type": "integer",
+      "example": "400"
+     }
+    }
+   },
+   "create_url_request_body": {
+    "type": "object",
+    "properties": {
+     "branch_key": {
+      "type": "string",
+      "description": "The Branch Key of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard.",
+      "example": "key_live_xxxx"
+     },
+     "channel": {
+      "type": "string",
+      "description": "Deep link channel",
+      "example": "facebook"
+     },
+     "feature": {
+      "type": "string",
+      "description": "Deep link feature set",
+      "example": "onboarding"
+     },
+     "campaign": {
+      "type": "string",
+      "description": "Campaign name",
+      "example": "new product"
+     },
+     "stage": {
+      "type": "string",
+      "description": "",
+      "example": "new user"
+     },
+     "tags": {
+      "type": "array",
+      "description": "Social media tags",
+      "items": {
+       "type": "string",
+       "example": "one"
+      }
+     },
+     "type": {
+      "type": "integer",
+      "description": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`). Note that type=2 is also required to customize a QR code using `qr_code_settings`.",
+      "example": "2"
+     },
+     "data": {
+      "type": "object",
+      "properties": {
+       "$marketing_title": {
+        "type": "string",
+        "description": "Set the marketing title to see the URL in the Dashboard (must also set `type` to 2).",
+        "example": "mytitle"
+       },
+       "$fallback_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms - so you don't have to enable it by platform. Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link. System-wide Default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$fallback_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms based on a lower-case Alpha-2 country code.",
+        "example": ""
+       },
+       "$desktop_url": {
+        "type": "string",
+        "description": "Redirect URL for desktop devices - mobile users will default to the app store.",
+        "example": ""
+       },
+       "$ios_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS App Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$ipad_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iPads $ios_url value",
+        "example": ""
+       },
+       "$android_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android Play Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$android_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$samsung_url": {
+        "type": "string",
+        "description": "Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}",
+        "example": ""
+       },
+       "$huawei_url": {
+        "type": "string",
+        "description": "Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}",
+        "example": ""
+       },
+       "$windows_phone_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Windows OS Windows Phone default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$blackberry_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Blackberry OS BlackBerry default URL (set in Link Settings) Deep link channel",
+        "example": ""
+       },
+       "$fire_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Amazon Fire OS Fire default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on iOS devices $ios_url value",
+        "example": ""
+       },
+       "$android_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on Android devices $android_url value",
+        "example": ""
+       },
+       "$web_only": {
+        "type": "boolean",
+        "description": "Force to open the $fallback_url instead of the app",
+        "example": "false"
+       },
+       "$desktop_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$mobile_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$after_click_url": {
+        "type": "string",
+        "description": "When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon",
+        "example": ""
+       },
+       "$afterclick_desktop_url": {
+        "type": "boolean",
+        "description": "When a user on desktop returns to the desktop browser after going to the desktop app, take them to this URL.",
+        "example": "false"
+       }
+      }
+     },
+     "alias": {
+      "type": "string",
+      "description": "Instead of our standard encoded short url, you can specify the vanity alias. For example, instead of a random string of characters/integers, you can set the vanity alias as .app.link/devonaustin.",
+      "example": ""
+     },
+     "duration": {
+      "type": "integer",
+      "description": "In seconds. Only set this key if you want to override the match duration for deep link matching. This is the time that Branch allows a click to remain outstanding and be eligible to be matched with a new app session. This is default set to 7200 (2 hours).",
+      "example": "7200"
+     },
+     "analytics": {
+      "type": "object",
+      "properties": {
+       "~channel": {
+        "type": "string",
+        "description": "Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately",
+        "example": ""
+       },
+       "~feature": {
+        "type": "string",
+        "description": "This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'",
+        "example": ""
+       },
+       "~campaign": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~campaign_id": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign id. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~customer_campaign": {
+        "type": "string",
+        "description": "The customer campaign specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~stage": {
+        "type": "string",
+        "description": "Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter",
+        "example": ""
+       },
+       "~tags": {
+        "type": "array",
+        "description": "This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above",
+        "items": {
+         "type": "string"
+        }
+       },
+       "~secondary_publisher": {
+        "type": "string",
+        "description": "secondary publisher specified for the last attributed touch. passed by the ad network.",
+        "example": ""
+       },
+       "~customer_secondary_publisher": {
+        "type": "string",
+        "description": "The ID of the secondary publisher specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~creative_name": {
+        "type": "string",
+        "description": "The creative name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~creative_id": {
+        "type": "string",
+        "description": "The creative ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_name": {
+        "type": "string",
+        "description": "The ad set name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_id": {
+        "type": "string",
+        "description": "The ad set ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_set_name": {
+        "type": "string",
+        "description": "The customer ad set name specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~ad_name": {
+        "type": "string",
+        "description": "The ad name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_id": {
+        "type": "string",
+        "description": "The ad ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_name": {
+        "type": "string",
+        "description": "The customer ad name specified for the last attributed touch. can be specified on the link by the client.",
+        "example": ""
+       },
+       "~keyword": {
+        "type": "string",
+        "description": "The keyword specified for the last attributed touch.",
+        "example": ""
+       },
+       "~keyword_id": {
+        "type": "string",
+        "description": "The unique ID for keyword of the last touch",
+        "example": ""
+       },
+       "~customer_keyword": {
+        "type": "string",
+        "description": "The customer keyword of the last touch. Can be specified on links by the client.",
+        "example": ""
+       },
+       "~placement": {
+        "type": "string",
+        "description": "The placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~placement_id": {
+        "type": "string",
+        "description": "The ID of placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~customer_placement": {
+        "type": "string",
+        "description": "The customer specified placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns. Can be specified on the link by the client.",
+        "example": ""
+       },
+       "~sub_site_name": {
+        "type": "string",
+        "description": "Reference to the site where the ad was displayed.",
+        "example": ""
+       },
+       "~customer_sub_site_name": {
+        "type": "string",
+        "description": "Customer reference to the site where the ad was displayed. Can be specified on links by the client.",
+        "example": ""
+       }
+      }
+     },
+     "qr_code_settings": {
+      "type": "object",
+      "description": "QR code customization settings. When included, both the Short Link and its customized QR code are generated instantly. Requires type=2 to be set. This object accepts the same styling parameters as the QR Code API.",
+      "properties": {
+       "image_format": {
+        "type": "string",
+        "description": "The output image format that could be either JPEG or PNG",
+        "example": "png",
+        "enum": [
+         "png",
+         "jpeg",
+         "jpg"
+        ]
+       },
+       "center_logo_url": {
+        "type": "string",
+        "description": "URL to the image you want as a center logo e.g. \"https://cdn.branch.io/branch-assets/00000000-og_image.png\"",
+        "example": "https://cdn.branch.io/branch-assets/00000000-og_image.png"
+       },
+       "width": {
+        "type": "integer",
+        "description": "Output size of QR Code image. Min 300px. Max 2000px. (Only applicable to JPEG/PNG)",
+        "example": "300",
+        "minimum": "300",
+        "maximum": "2000"
+       },
+       "margin": {
+        "type": "integer",
+        "description": "The number of pixels you want for the margin. Min 1px. Max 20px.",
+        "example": "1",
+        "minimum": "1",
+        "maximum": "20"
+       },
+       "code_color": {
+        "type": "string",
+        "description": "Hex color value of the QR Code itself as per https://htmlcolorcodes.com/",
+        "example": "#000000"
+       },
+       "background_color": {
+        "type": "string",
+        "description": "Hex color value of the background of the QR code itself as per https://htmlcolorcodes.com/",
+        "example": "#FFFFFF"
+       },
+       "code_pattern": {
+        "type": "integer",
+        "description": "QR Code pattern style: 1 = standard, 2 = squares, 3 = circles, 4 = triangles, 5 = diamonds, 6 = hexagons, 7 = octagons",
+        "enum": [
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7"
+        ],
+        "default": "1"
+       },
+       "finder_pattern": {
+        "type": "integer",
+        "description": "The finder pattern shape (top left, top right, and bottom left corners): 1 = square, 2 = rounded rectangle, 3 = circle",
+        "enum": [
+         "1",
+         "2",
+         "3"
+        ],
+        "default": "1"
+       },
+       "finder_pattern_color": {
+        "type": "string",
+        "description": "Hex color value of the Finder Pattern as per https://htmlcolorcodes.com/",
+        "example": "#00A3D8"
+       },
+       "background_image_url": {
+        "type": "string",
+        "description": "URL to an image to be used as the background behind the QR Code."
+       },
+       "code_pattern_url": {
+        "type": "string",
+        "description": "Direct link to an image to be used as the code-pattern itself on the QR Code."
+       },
+       "finder_eye_color": {
+        "type": "string",
+        "description": "Hex color value of the finder eye as per https://htmlcolorcodes.com/",
+        "example": "#00A3D8"
+       },
+       "code_shape": {
+        "type": "integer",
+        "description": "Shape of the QR code modules."
+       }
+      }
+     }
+    },
+    "required": [
+     "branch_key"
+    ]
+   },
+   "update_url_request_body": {
+    "type": "object",
+    "properties": {
+     "branch_key": {
+      "type": "string",
+      "description": "The Branch Key of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard",
+      "example": "key_live_xxxx"
+     },
+     "branch_secret": {
+      "type": "string",
+      "description": "The Branch Secret of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard",
+      "example": "secret_live_xxxx"
+     },
+     "data": {
+      "type": "object",
+      "properties": {
+       "$marketing_title": {
+        "type": "string",
+        "description": "Marketing title must be set in order to see the Branch Deep Link in the Branch Dashboard (must have also set `type` to 2 during creation)"
+       },
+       "$fallback_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms - so you don't have to enable it by platform. Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link. System-wide Default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$fallback_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for all platforms based on a lower-case Alpha-2 country code.",
+        "example": ""
+       },
+       "$desktop_url": {
+        "type": "string",
+        "description": "Redirect URL for desktop devices - mobile users will default to the app store.",
+        "example": ""
+       },
+       "$ios_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS App Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$ipad_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for iPads $ios_url value",
+        "example": ""
+       },
+       "$android_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android Play Store page for your app (set in Link Settings)",
+        "example": ""
+       },
+       "$android_url_xx": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=\"...\" would redirect Germany deep link clicks.",
+        "example": ""
+       },
+       "$samsung_url": {
+        "type": "string",
+        "description": "Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}",
+        "example": ""
+       },
+       "$huawei_url": {
+        "type": "string",
+        "description": "Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}",
+        "example": ""
+       },
+       "$windows_phone_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Windows OS Windows Phone default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$blackberry_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Blackberry OS BlackBerry default URL (set in Link Settings) Deep link channel",
+        "example": ""
+       },
+       "$fire_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for Amazon Fire OS Fire default URL (set in Link Settings)",
+        "example": ""
+       },
+       "$ios_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on iOS devices $ios_url value",
+        "example": ""
+       },
+       "$android_wechat_url": {
+        "type": "string",
+        "description": "Change the redirect endpoint for WeChat on Android devices $android_url value",
+        "example": ""
+       },
+       "$web_only": {
+        "type": "boolean",
+        "description": "Force to open the $fallback_url instead of the app",
+        "example": "false"
+       },
+       "$desktop_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$mobile_web_only": {
+        "type": "boolean",
+        "description": "Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app",
+        "example": "false"
+       },
+       "$after_click_url": {
+        "type": "string",
+        "description": "When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon",
+        "example": ""
+       },
+       "$afterclick_desktop_url": {
+        "type": "boolean",
+        "description": "When a user on desktop returns to the desktop browser after going to the desktop app, take them to this URL.",
+        "example": "false"
+       },
+       "$canonical_url": {
+        "type": "string",
+        "description": "This is the url set against the identifier.",
+        "example": "http://www.example.com/content/123"
+       }
+      }
+     },
+     "channel": {
+      "type": "string",
+      "description": "Deep link channel",
+      "example": "facebook"
+     },
+     "feature": {
+      "type": "string",
+      "description": "Deep link feature set",
+      "example": "onboarding"
+     },
+     "campaign": {
+      "type": "string",
+      "description": "Campaign name",
+      "example": "new product"
+     },
+     "stage": {
+      "type": "string",
+      "description": "",
+      "example": "new user"
+     },
+     "tags": {
+      "type": "array",
+      "description": "Social media tags",
+      "items": {
+       "type": "string",
+       "example": "one"
+      }
+     },
+     "type": {
+      "type": "integer",
+      "description": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`). Note that type=2 is also required to customize a QR code using `qr_code_settings`.",
+      "example": "2"
+     },
+     "duration": {
+      "type": "integer",
+      "description": "In seconds. Only set this key if you want to override the match duration for Deep Link matching. This is the time that Branch allows a click to remain outstanding and be eligible to be matched with a new app session. This is default set to 7200 (2 hours).",
+      "example": "7200"
+     },
+     "analytics": {
+      "type": "object",
+      "properties": {
+       "~channel": {
+        "type": "string",
+        "description": "Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately",
+        "example": ""
+       },
+       "~feature": {
+        "type": "string",
+        "description": "This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'",
+        "example": ""
+       },
+       "~campaign": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~campaign_id": {
+        "type": "string",
+        "description": "Use this field to organize the links by actual campaign id. For example, if you launched a new feature or product and want to run a campaign around that",
+        "example": ""
+       },
+       "~customer_campaign": {
+        "type": "string",
+        "description": "The customer campaign specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~stage": {
+        "type": "string",
+        "description": "Use this to categorize the progress or category of a user when the link was generated. For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter",
+        "example": ""
+       },
+       "~tags": {
+        "type": "array",
+        "description": "This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above",
+        "items": {
+         "type": "string"
+        }
+       },
+       "~secondary_publisher": {
+        "type": "string",
+        "description": "secondary publisher specified for the last attributed touch (passed by the ad network).",
+        "example": ""
+       },
+       "~customer_secondary_publisher": {
+        "type": "string",
+        "description": "The ID of the secondary publisher specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~creative_name": {
+        "type": "string",
+        "description": "The creative name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~creative_id": {
+        "type": "string",
+        "description": "The creative ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_name": {
+        "type": "string",
+        "description": "The ad set name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_set_id": {
+        "type": "string",
+        "description": "The ad set ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_set_name": {
+        "type": "string",
+        "description": "The customer ad set name specified for the last attributed touch. can be specified on links by the client.",
+        "example": ""
+       },
+       "~ad_name": {
+        "type": "string",
+        "description": "The ad name specified for the last attributed touch.",
+        "example": ""
+       },
+       "~ad_id": {
+        "type": "string",
+        "description": "The ad ID specified for the last attributed touch.",
+        "example": ""
+       },
+       "~customer_ad_name": {
+        "type": "string",
+        "description": "The customer ad name specified for the last attributed touch. can be specified on the link by the client.",
+        "example": ""
+       },
+       "~keyword": {
+        "type": "string",
+        "description": "The keyword specified for the last attributed touch.",
+        "example": ""
+       },
+       "~keyword_id": {
+        "type": "string",
+        "description": "The unique ID for keyword of the last touch",
+        "example": ""
+       },
+       "~customer_keyword": {
+        "type": "string",
+        "description": "The customer keyword of the last touch. Can be specified on links by the client.",
+        "example": ""
+       },
+       "~placement": {
+        "type": "string",
+        "description": "The placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~placement_id": {
+        "type": "string",
+        "description": "The ID of placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns.",
+        "example": ""
+       },
+       "~customer_placement": {
+        "type": "string",
+        "description": "The customer specified placement of the last touch, as set with an analytics tag. Actual app or website the ad appears on display campaigns. Can be specified on the link by the client.",
+        "example": ""
+       },
+       "~sub_site_name": {
+        "type": "string",
+        "description": "Reference to the site where the ad was displayed.",
+        "example": ""
+       },
+       "~customer_sub_site_name": {
+        "type": "string",
+        "description": "Customer reference to the site where the ad was displayed. Can be specified on links by the client.",
+        "example": ""
+       }
+      }
+     },
+     "qr_code_settings": {
+      "type": "object",
+      "description": "QR code customization settings for updating the QR code design on an existing link. This object accepts the same styling parameters as the QR Code API.",
+      "properties": {
+       "image_format": {
+        "type": "string",
+        "description": "The output image format that could be either JPEG or PNG",
+        "example": "png",
+        "enum": [
+         "png",
+         "jpeg",
+         "jpg"
+        ]
+       },
+       "center_logo_url": {
+        "type": "string",
+        "description": "URL to the image you want as a center logo e.g. \"https://cdn.branch.io/branch-assets/00000000-og_image.png\"",
+        "example": "https://cdn.branch.io/branch-assets/00000000-og_image.png"
+       },
+       "width": {
+        "type": "integer",
+        "description": "Output size of QR Code image. Min 300px. Max 2000px. (Only applicable to JPEG/PNG)",
+        "example": "300",
+        "minimum": "300",
+        "maximum": "2000"
+       },
+       "margin": {
+        "type": "integer",
+        "description": "The number of pixels you want for the margin. Min 1px. Max 20px.",
+        "example": "1",
+        "minimum": "1",
+        "maximum": "20"
+       },
+       "code_color": {
+        "type": "string",
+        "description": "Hex color value of the QR Code itself as per https://htmlcolorcodes.com/",
+        "example": "#000000"
+       },
+       "background_color": {
+        "type": "string",
+        "description": "Hex color value of the background of the QR code itself as per https://htmlcolorcodes.com/",
+        "example": "#FFFFFF"
+       },
+       "code_pattern": {
+        "type": "integer",
+        "description": "QR Code pattern style: 1 = standard, 2 = squares, 3 = circles, 4 = triangles, 5 = diamonds, 6 = hexagons, 7 = octagons",
+        "enum": [
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7"
+        ],
+        "default": "1"
+       },
+       "finder_pattern": {
+        "type": "integer",
+        "description": "The finder pattern shape (top left, top right, and bottom left corners): 1 = square, 2 = rounded rectangle, 3 = circle",
+        "enum": [
+         "1",
+         "2",
+         "3"
+        ],
+        "default": "1"
+       },
+       "finder_pattern_color": {
+        "type": "string",
+        "description": "Hex color value of the Finder Pattern as per https://htmlcolorcodes.com/",
+        "example": "#00A3D8"
+       },
+       "background_image_url": {
+        "type": "string",
+        "description": "URL to an image to be used as the background behind the QR Code."
+       },
+       "code_pattern_url": {
+        "type": "string",
+        "description": "Direct link to an image to be used as the code-pattern itself on the QR Code."
+       },
+       "finder_eye_color": {
+        "type": "string",
+        "description": "Hex color value of the finder eye as per https://htmlcolorcodes.com/",
+        "example": "#00A3D8"
+       },
+       "code_shape": {
+        "type": "integer",
+        "description": "Shape of the QR code modules."
+       }
+      }
+     }
+    },
+    "required": [
+     "branch_key",
+     "branch_secret"
+    ]
+   },
+   "delete_url_200": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "description": "Deleted URL",
+      "type": "string",
+      "example": "https://example.app.link/{UNIQUE_PATH_HERE}"
+     },
+     "deleted": {
+      "description": "Deletion status",
+      "type": "boolean",
+      "example": "true"
+     }
+    }
+   }
+  }
+ }
+}
