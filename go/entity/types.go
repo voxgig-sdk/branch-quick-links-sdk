@@ -1,7 +1,7 @@
 // Typed models for the BranchQuickLinks SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,7 +14,6 @@ import (
 
 // Bulk is the typed data model for the bulk entity.
 type Bulk struct {
-	Id *string `json:"id,omitempty"`
 }
 
 // BulkCreateData is the typed request payload for Bulk.CreateTyped.
@@ -24,21 +23,6 @@ type BulkCreateData struct {
 
 // Url is the typed data model for the url entity.
 type Url struct {
-	Alias *string `json:"alias,omitempty"`
-	Analytics *map[string]any `json:"analytics,omitempty"`
-	BranchKey string `json:"branch_key"`
-	BranchSecret string `json:"branch_secret"`
-	Campaign *string `json:"campaign,omitempty"`
-	Channel *string `json:"channel,omitempty"`
-	Data *map[string]any `json:"data,omitempty"`
-	Deleted *bool `json:"deleted,omitempty"`
-	Duration *int `json:"duration,omitempty"`
-	Feature *string `json:"feature,omitempty"`
-	QrCodeSettings *map[string]any `json:"qr_code_settings,omitempty"`
-	Stage *string `json:"stage,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Type *int `json:"type,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // UrlCreateData is the typed request payload for Url.CreateTyped.

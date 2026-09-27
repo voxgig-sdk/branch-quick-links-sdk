@@ -187,6 +187,7 @@ def make_config():
         "fields": [
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
         ],
@@ -201,26 +202,9 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "key_live_xxxx",
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "branch_key",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/url/bulk/{branch_key}",
-                "rename": {
-                  "param": {
-                    "branch_key": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "url",
@@ -232,20 +216,37 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "url",
                   "bulk",
                   "{id}",
                 ],
+                "rename": {
+                  "param": {
+                    "branch_key": "id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "branch_key",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "key_live_xxxx",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },
@@ -258,77 +259,92 @@ def make_config():
         "fields": [
           {
             "name": "alias",
-            "short": "Instead of our standard encoded short url, you can specify the vanity alias.",
+            "title": "Alias",
             "type": "`$STRING`",
+            "short": "Instead of our standard encoded short url, you can specify the vanity alias.",
           },
           {
             "name": "analytics",
+            "title": "Analytics",
             "type": "`$OBJECT`",
           },
           {
             "name": "branch_key",
+            "title": "Branch Key",
+            "type": "`$STRING`",
             "req": True,
             "short": "The Branch Key of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard.",
-            "type": "`$STRING`",
           },
           {
             "name": "branch_secret",
+            "title": "Branch Secret",
+            "type": "`$STRING`",
             "req": True,
             "short": "The Branch Secret of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard",
-            "type": "`$STRING`",
           },
           {
             "name": "campaign",
-            "short": "Campaign name",
+            "title": "Campaign",
             "type": "`$STRING`",
+            "short": "Campaign name",
           },
           {
             "name": "channel",
-            "short": "Deep link channel",
+            "title": "Channel",
             "type": "`$STRING`",
+            "short": "Deep link channel",
           },
           {
             "name": "data",
+            "title": "Data",
             "type": "`$OBJECT`",
           },
           {
             "name": "deleted",
-            "short": "Deletion status",
+            "title": "Deleted",
             "type": "`$BOOLEAN`",
+            "short": "Deletion status",
           },
           {
             "name": "duration",
-            "short": "In seconds.",
+            "title": "Duration",
             "type": "`$INTEGER`",
+            "short": "In seconds.",
           },
           {
             "name": "feature",
-            "short": "Deep link feature set",
+            "title": "Feature",
             "type": "`$STRING`",
+            "short": "Deep link feature set",
           },
           {
             "name": "qr_code_settings",
-            "short": "QR code customization settings.",
+            "title": "Qr Code Settings",
             "type": "`$OBJECT`",
+            "short": "QR code customization settings.",
           },
           {
             "name": "stage",
+            "title": "Stage",
             "type": "`$STRING`",
           },
           {
             "name": "tags",
-            "short": "Social media tags",
+            "title": "Tags",
             "type": "`$ARRAY`",
+            "short": "Social media tags",
           },
           {
             "name": "type",
-            "short": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`).",
+            "title": "Type",
             "type": "`$INTEGER`",
+            "short": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`).",
           },
           {
             "name": "url",
-            "short": "Generated URL",
+            "title": "Url",
             "type": "`$STRING`",
+            "short": "Generated URL",
           },
         ],
         "name": "url",
@@ -338,7 +354,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/url",
@@ -347,14 +362,16 @@ def make_config():
                     "lit": "url",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "url",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "url",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -363,18 +380,6 @@ def make_config():
             "name": "update",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "https://example.app.link/{UNIQUE_PATH_HERE}",
-                      "kind": "query",
-                      "name": "url",
-                      "orig": "url",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/url",
@@ -383,18 +388,31 @@ def make_config():
                     "lit": "url",
                   },
                 ],
+                "parts": [
+                  "url",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "url",
+                      "orig": "url",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "https://example.app.link/{UNIQUE_PATH_HERE}",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "url",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "url",
-                ],
               },
             ],
           },

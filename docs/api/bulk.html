@@ -20,14 +20,14 @@
 <a href="../sdks/ts.html">TypeScript</a></details>
 <details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
 <a href="../tools/go-mcp.html">Go MCP server</a></details>
-<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
-<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
-<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
-<a href="../features/paging.html">Pagination signals for list operations</a>
-<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
-<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
-<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
-<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="bulk">Bulk</h1>
+<details><summary>Features</summary><a href="../features/debug.html">Debug capture</a>
+<a href="../features/idempotency.html">Idempotency</a>
+<a href="../features/metrics.html">Metrics</a>
+<a href="../features/paging.html">Paging</a>
+<a href="../features/ratelimit.html">Rate limiting</a>
+<a href="../features/retry.html">Retry</a>
+<a href="../features/test.html">Test transport</a>
+<a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="bulk">Bulk</h1>
 <h2 id="operations">Operations</h2>
 <p>Every route this entity exposes. Each route links to its own reference on this page.</p>
 <table>
@@ -48,6 +48,36 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">created, err := client.Bulk(nil).Create(map[string]any{&quot;id&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(created)
+</code></pre>
+<h3 id="javascript">JavaScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/js.html#set-up-the-client">JavaScript setup</a>, then call the operations:</p>
+<pre><code class="language-js">const created = await client.Bulk().create({ id: &quot;example&quot; })
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local created, err = client:Bulk():create({ id = &quot;example&quot; })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$created = $client-&gt;Bulk()-&gt;create([&quot;id&quot; =&gt; &quot;example&quot;]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">created = client.Bulk().create({ &quot;id&quot;: &quot;example&quot; })
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const created = await client.Bulk().create({ id: &quot;example&quot; })
+</code></pre>
 <h2 id="fields">Fields</h2>
 <table>
 <thead>
@@ -63,7 +93,7 @@
 <td><code>id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Id</td>
 </tr>
 </tbody>
 </table>
@@ -288,13 +318,13 @@
 <td><code>[].data.$android_url_xx</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $android_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+<td>Change the redirect endpoint for Android based on a lower-case Alpha-2 country code. For example, $<code>android_url_de</code>=&quot;...&quot; would redirect Germany deep link clicks.</td>
 </tr>
 <tr>
 <td><code>[].data.$android_wechat_url</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Change the redirect endpoint for WeChat on Android devices $android_url value</td>
+<td>Change the redirect endpoint for WeChat on Android devices $<code>android_url</code> value</td>
 </tr>
 <tr>
 <td><code>[].data.$blackberry_url</code></td>
@@ -312,7 +342,7 @@
 <td><code>[].data.$desktop_web_only</code></td>
 <td><code>boolean</code></td>
 <td>No</td>
-<td>Force to open the $windows_desktop_url, $mac_desktop_url, $desktop_url, or $fallback_url in this order of precedence instead of the app</td>
+<td>Force to open the $<code>windows_desktop_url</code>, $<code>mac_desktop_url</code>, $<code>desktop_url</code>, or $<code>fallback_url</code> in this order of precedence instead of the app</td>
 </tr>
 <tr>
 <td><code>[].data.$fallback_url</code></td>
@@ -336,7 +366,7 @@
 <td><code>[].data.$huawei_url</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{HUAWEI_APP_GALLERY_ID_HERE}</td>
+<td>Redirect to the Huawei App Gallery on Huawei devices. Only link level control. Format should be https://appgallery.huawei.com/app/{<code>HUAWEI_APP_GALLERY_ID_HERE</code>}</td>
 </tr>
 <tr>
 <td><code>[].data.$ios_url</code></td>
@@ -348,19 +378,19 @@
 <td><code>[].data.$ios_url_xx</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $ios_url_de=&quot;...&quot; would redirect Germany deep link clicks.</td>
+<td>Change the redirect endpoint for iOS based on a lower-case Alpha-2 country code. For example, $<code>ios_url_de</code>=&quot;...&quot; would redirect Germany deep link clicks.</td>
 </tr>
 <tr>
 <td><code>[].data.$ios_wechat_url</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Change the redirect endpoint for WeChat on iOS devices $ios_url value</td>
+<td>Change the redirect endpoint for WeChat on iOS devices $<code>ios_url</code> value</td>
 </tr>
 <tr>
 <td><code>[].data.$ipad_url</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Change the redirect endpoint for iPads $ios_url value</td>
+<td>Change the redirect endpoint for iPads $<code>ios_url</code> value</td>
 </tr>
 <tr>
 <td><code>[].data.$marketing_title</code></td>
@@ -372,19 +402,19 @@
 <td><code>[].data.$mobile_web_only</code></td>
 <td><code>boolean</code></td>
 <td>No</td>
-<td>Force to open the $ios_url, $android_url, or $fallback_url in this order of precedence instead of the app</td>
+<td>Force to open the $<code>ios_url</code>, $<code>android_url</code>, or $<code>fallback_url</code> in this order of precedence instead of the app</td>
 </tr>
 <tr>
 <td><code>[].data.$samsung_url</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td>Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={PACKAGE_NAME_HERE}</td>
+<td>Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId={<code>PACKAGE_NAME_HERE</code>}</td>
 </tr>
 <tr>
 <td><code>[].data.$web_only</code></td>
 <td><code>boolean</code></td>
 <td>No</td>
-<td>Force to open the $fallback_url instead of the app</td>
+<td>Force to open the $<code>fallback_url</code> instead of the app</td>
 </tr>
 <tr>
 <td><code>[].data.$windows_phone_url</code></td>
@@ -420,7 +450,7 @@
 <td><code>[].type</code></td>
 <td><code>integer</code></td>
 <td>No</td>
-<td>Set type to 2 to see the Branch Deep Link in the Branch Dashboard (must also set <code>$marketing_title</code>).</td>
+<td>Set type to 2 to see the Branch Deep Link in the Branch Dashboard (must also set <code>$</code>marketing_title``).</td>
 </tr>
 </tbody>
 </table>
@@ -490,8 +520,20 @@
 </thead>
 <tbody>
 <tr>
-<td><code>$ref</code></td>
-<td><code>any</code></td>
+<td><code>error</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.code</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>error.message</code></td>
+<td><code>string</code></td>
 <td>No</td>
 <td></td>
 </tr>

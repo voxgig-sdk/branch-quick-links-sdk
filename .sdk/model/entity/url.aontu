@@ -1,0 +1,181 @@
+# Entity: url
+
+main: kit: entity: url: {
+
+  alias: field: {}
+
+  fields: {
+    alias: {
+      h: "Alias"
+      n: "alias"
+      r: false
+      sh: "Instead of our standard encoded short url, you can specify the vanity alias."
+      t: "`$STRING`"
+    }
+    analytics: {
+      h: "Analytics"
+      n: "analytics"
+      r: false
+      t: "`$OBJECT`"
+    }
+    branch_key: {
+      h: "Branch Key"
+      n: "branch_key"
+      r: true
+      sh: "The Branch Key of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard."
+      t: "`$STRING`"
+    }
+    branch_secret: {
+      h: "Branch Secret"
+      n: "branch_secret"
+      r: true
+      sh: "The Branch Secret of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard"
+      t: "`$STRING`"
+    }
+    campaign: {
+      h: "Campaign"
+      n: "campaign"
+      r: false
+      sh: "Campaign name"
+      t: "`$STRING`"
+    }
+    channel: {
+      h: "Channel"
+      n: "channel"
+      r: false
+      sh: "Deep link channel"
+      t: "`$STRING`"
+    }
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      t: "`$OBJECT`"
+    }
+    deleted: {
+      h: "Deleted"
+      n: "deleted"
+      r: false
+      sh: "Deletion status"
+      t: "`$BOOLEAN`"
+    }
+    duration: {
+      h: "Duration"
+      n: "duration"
+      r: false
+      sh: "In seconds."
+      t: "`$INTEGER`"
+    }
+    feature: {
+      h: "Feature"
+      n: "feature"
+      r: false
+      sh: "Deep link feature set"
+      t: "`$STRING`"
+    }
+    qr_code_settings: {
+      h: "Qr Code Settings"
+      n: "qr_code_settings"
+      r: false
+      sh: "QR code customization settings."
+      t: "`$OBJECT`"
+    }
+    stage: {
+      h: "Stage"
+      n: "stage"
+      r: false
+      t: "`$STRING`"
+    }
+    tags: {
+      h: "Tags"
+      n: "tags"
+      r: false
+      sh: "Social media tags"
+      t: "`$ARRAY`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`)."
+      t: "`$INTEGER`"
+    }
+    url: {
+      h: "Url"
+      n: "url"
+      r: false
+      sh: "Generated URL"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "url"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /url"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/url"
+          s: [
+            {
+              lit: "url"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /url"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "https://example.app.link/{UNIQUE_PATH_HERE}"
+                k: "query"
+                n: "url"
+                or: "url"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/url"
+          q: {
+            exist: [
+              "url"
+            ]
+          }
+          s: [
+            {
+              lit: "url"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

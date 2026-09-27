@@ -1,0 +1,37 @@
+# BasicUrlFlow
+
+main: kit: flow: BasicUrlFlow:
+{
+  entity: "url",
+  kind: "basic",
+  name: "BasicUrlFlow",
+  step: [
+    {
+      i: {
+        ref: "url_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "url_ref01",
+        srcdatavar: "url_ref01_data",
+        suffix: "_up0",
+        textfield: "alias"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-url_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicUrlFlow"
+}

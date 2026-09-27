@@ -162,6 +162,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -176,26 +177,9 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "key_live_xxxx",
-											"kind": "param",
-											"name": "id",
-											"orig": "branch_key",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/url/bulk/{branch_key}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"branch_key": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "url",
@@ -207,19 +191,36 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"url",
+									"bulk",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"branch_key": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"url",
-									"bulk",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "branch_key",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "key_live_xxxx",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -233,77 +234,92 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "alias",
-						"short": "Instead of our standard encoded short url, you can specify the vanity alias.",
+						"title": "Alias",
 						"type": "`$STRING`",
+						"short": "Instead of our standard encoded short url, you can specify the vanity alias.",
 					},
 					map[string]any{
 						"name": "analytics",
+						"title": "Analytics",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "branch_key",
+						"title": "Branch Key",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The Branch Key of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "branch_secret",
+						"title": "Branch Secret",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The Branch Secret of the originating app, found in the [Settings](https://help.branch.io/using-branch/docs/profile-settings) tab of your Branch Dashboard",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "campaign",
-						"short": "Campaign name",
+						"title": "Campaign",
 						"type": "`$STRING`",
+						"short": "Campaign name",
 					},
 					map[string]any{
 						"name": "channel",
-						"short": "Deep link channel",
+						"title": "Channel",
 						"type": "`$STRING`",
+						"short": "Deep link channel",
 					},
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "deleted",
-						"short": "Deletion status",
+						"title": "Deleted",
 						"type": "`$BOOLEAN`",
+						"short": "Deletion status",
 					},
 					map[string]any{
 						"name": "duration",
-						"short": "In seconds.",
+						"title": "Duration",
 						"type": "`$INTEGER`",
+						"short": "In seconds.",
 					},
 					map[string]any{
 						"name": "feature",
-						"short": "Deep link feature set",
+						"title": "Feature",
 						"type": "`$STRING`",
+						"short": "Deep link feature set",
 					},
 					map[string]any{
 						"name": "qr_code_settings",
-						"short": "QR code customization settings.",
+						"title": "Qr Code Settings",
 						"type": "`$OBJECT`",
+						"short": "QR code customization settings.",
 					},
 					map[string]any{
 						"name": "stage",
+						"title": "Stage",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "tags",
-						"short": "Social media tags",
+						"title": "Tags",
 						"type": "`$ARRAY`",
+						"short": "Social media tags",
 					},
 					map[string]any{
 						"name": "type",
-						"short": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`).",
+						"title": "Type",
 						"type": "`$INTEGER`",
+						"short": "Set to 2 in order to see Branch Deep Link URLs in the Branch Dashboard (must also set `$marketing_title`).",
 					},
 					map[string]any{
 						"name": "url",
-						"short": "Generated URL",
+						"title": "Url",
 						"type": "`$STRING`",
+						"short": "Generated URL",
 					},
 				},
 				"name": "url",
@@ -313,7 +329,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/url",
@@ -322,14 +337,16 @@ func MakeConfig() map[string]any {
 										"lit": "url",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"url",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"url",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -338,18 +355,6 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "https://example.app.link/{UNIQUE_PATH_HERE}",
-											"kind": "query",
-											"name": "url",
-											"orig": "url",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/url",
@@ -358,17 +363,30 @@ func MakeConfig() map[string]any {
 										"lit": "url",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"url",
-									},
+								"parts": []any{
+									"url",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"url",
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "url",
+											"orig": "url",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+											"example": "https://example.app.link/{UNIQUE_PATH_HERE}",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"url",
+									},
 								},
 							},
 						},
